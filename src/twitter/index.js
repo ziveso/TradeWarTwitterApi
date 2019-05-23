@@ -18,7 +18,7 @@ const streaming = () => {
       write(
         moment()
           .utc()
-          .startOf("minute")
+          .startOf("hour")
           .format("DD_MM_YY_hh_mm")
       );
     });
