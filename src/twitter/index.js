@@ -19,7 +19,7 @@ const streaming = () => {
         moment()
           .utc()
           .startOf("hour")
-          .format("DD_MM_YY_hh_mm")
+          .format("DD_MM_YY_hh")
       );
     });
   } catch (error) {
