@@ -17,6 +17,7 @@ const streaming = () => {
       //   console.log(tweet.text);
       write(
         moment()
+          .utc()
           .startOf("minute")
           .format("DD_MM_YY_hh_mm")
       );
