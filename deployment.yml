@@ -1,0 +1,53 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: spa-practice-loadbalancer
+spec:
+  selector:
+    app: spa-practice-pod
+  ports:
+    - protocol: "TCP"
+      # Port accessible inside cluster
+      port: 80
+      # Port to forward to inside the pod
+      targetPort: 5000
+      # Port accessible outside cluster
+      nodePort: 30001
+  type: LoadBalancer
+
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: spa-exam-frontend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: spa-exam-frontend
+    spec:
+      containers:
+        - name: spa-exam-frontend
+          image: ziveso/spa-exam-frontend
+          ports:
+            - containerPort: 5000
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spa-exam-backend
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: spa-exam-backend
+    spec:
+      containers:
+        - name: spa-exam-backend
+          image: ziveso/spa-exam-backend
+          ports:
+            - containerPort: 8080

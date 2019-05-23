@@ -1,6 +1,6 @@
 const Twit = require("twit");
 const moment = require("moment");
-const { write } = require("../database/");
+const { write, push } = require("../database/");
 
 const Twitter = new Twit({
   consumer_key: process.env.consumer_key,
@@ -13,14 +13,19 @@ const streaming = () => {
   try {
     var stream = Twitter.stream("statuses/filter", { track: "#tradewar" });
     stream.on("tweet", async function(tweet) {
-      console.log("tweet at", tweet.created_at);
-      //   console.log(tweet.text);
+      const value = {
+        created_at: moment().toISOString(),
+        text: tweet.text,
+        user: JSON.stringify(tweet.user)
+      };
+      console.log(tweet.created_at);
       write(
         moment()
           .utc()
           .startOf("hour")
           .format("DD_MM_YY_hh")
       );
+      push(value);
     });
   } catch (error) {
     console.log(error.message);

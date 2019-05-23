@@ -16,7 +16,7 @@ firebase.initializeApp(apis);
 const write = key => {
   firebase
     .database()
-    .ref("/")
+    .ref("/count")
     .transaction(function(post) {
       if (post) {
         if (!post[key]) {
@@ -33,6 +33,14 @@ const write = key => {
     });
 };
 
+const push = value => {
+  firebase
+    .database()
+    .ref("/database")
+    .push(value);
+};
+
 module.exports = {
-  write
+  write,
+  push
 };
