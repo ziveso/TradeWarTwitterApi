@@ -13,3 +13,12 @@ add tweets data to firebase
 ```
 on master
 ```
+
+# to test within my env
+```
+docker pull ziveso/spa-exam-backend:latest
+```
+
+```
+docker run -p 8080:8080 -d ziveso/spa-exam-backend
+```
